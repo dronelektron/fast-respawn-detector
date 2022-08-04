@@ -2,13 +2,13 @@ void UseCase_PlayerSpawn(int client) {
     float classChangeDelta = Client_GetClassChangeDelta(client);
 
     if (Client_IsKilled(client) && classChangeDelta < CLASS_CHANGE_DELTA) {
-        float spectatorsDelta = Client_GetSpectatorsDelta(client);
+        float spectatorTime = Client_GetSpectatorTime(client);
 
-        Api_OnClientFastRespawned(client, spectatorsDelta);
+        Api_OnClientFastRespawned(client, spectatorTime);
     }
 
     Client_SetKilled(client, KILLED_NO);
-    Client_ResetSpectatorsTime(client);
+    Client_ResetSpectatorTime(client);
 }
 
 void UseCase_PlayerTeam(int client, int team) {
@@ -17,9 +17,9 @@ void UseCase_PlayerTeam(int client, int team) {
     bool fromDeadToAliveTeam = UseCase_IsDeadTeam(lastTeam) && UseCase_IsAliveTeam(team);
 
     if (fromAliveToDeadTeam) {
-        Client_UpdateSpectatorsStartTime(client);
+        Client_UpdateSpectatorStartTime(client);
     } else if (fromDeadToAliveTeam) {
-        Client_UpdateSpectatorsEndTime(client);
+        Client_UpdateSpectatorEndTime(client);
     }
 
     Client_SetLastTeam(client, team);

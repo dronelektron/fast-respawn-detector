@@ -13,7 +13,7 @@ public Plugin myinfo = {
     name = "Fast respawn detector",
     author = "Dron-elektron",
     description = "Allows you to detect a fast respawn",
-    version = "1.0.0",
+    version = "1.0.1",
     url = "https://github.com/dronelektron/fast-respawn-detector"
 };
 
