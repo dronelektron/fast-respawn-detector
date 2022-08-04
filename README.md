@@ -17,10 +17,10 @@ Allows you to detect a fast respawn:
 ### API
 
 * client - Client's number
-* spectatorsTime - How long the client was in spectators (in seconds)
+* spectatorTime - How long the client was in spectator team (in seconds)
 
 ```
-forward void OnClientFastRespawned(int client, float spectatorsTime);
+forward void OnClientFastRespawned(int client, float spectatorTime);
 ```
 
 ### Usage example
@@ -28,23 +28,23 @@ forward void OnClientFastRespawned(int client, float spectatorsTime);
 ```
 #include <sourcemod>
 
-#define FAST_RESPAWN_DETECTOR_LIBRARY "fast-respawn-detector"
+#define FAST_RESPAWN_DETECTOR "fast-respawn-detector"
 
 public Plugin myinfo = {
-    name = "Fast respawn detector (checker)",
+    name = "Fast respawn notifier",
     author = "Dron-elektron",
-    description = "Test plugin",
+    description = "Prints to all players that the client has fast respawned",
     version = "",
     url = ""
 };
 
 public void OnAllPluginsLoaded() {
-    if (!LibraryExists(FAST_RESPAWN_DETECTOR_LIBRARY)) {
-        SetFailState("Library '%s' is not found", FAST_RESPAWN_DETECTOR_LIBRARY);
+    if (!LibraryExists(FAST_RESPAWN_DETECTOR)) {
+        SetFailState("Library '%s' is not found", FAST_RESPAWN_DETECTOR);
     }
 }
 
-public void OnClientFastRespawned(int client, float spectatorsTime) {
-    PrintToChatAll("Client %d fast respawned, he was in spectators %.2f seconds", client, spectatorsTime);
+public void OnClientFastRespawned(int client, float spectatorTime) {
+    PrintToChatAll("Client %d fast respawned, he was in spectators for %.2f seconds", client, spectatorTime);
 }
 ```

@@ -8,9 +8,9 @@ void Api_Destroy() {
     delete g_onClientFastRespawned;
 }
 
-void Api_OnClientFastRespawned(int client, float spectatorsDelta) {
+void Api_OnClientFastRespawned(int client, float spectatorTime) {
     Call_StartForward(g_onClientFastRespawned);
     Call_PushCell(client);
-    Call_PushFloat(spectatorsDelta);
+    Call_PushFloat(spectatorTime);
     Call_Finish();
 }

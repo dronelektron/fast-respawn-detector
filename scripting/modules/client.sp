@@ -1,14 +1,14 @@
 static bool g_isKilled[MAXPLAYERS + 1];
 static float g_classChangeTime[MAXPLAYERS + 1];
-static float g_spectatorsStartTime[MAXPLAYERS + 1];
-static float g_spectatorsEndTime[MAXPLAYERS + 1];
+static float g_spectatorStartTime[MAXPLAYERS + 1];
+static float g_spectatorEndTime[MAXPLAYERS + 1];
 static int g_lastTeam[MAXPLAYERS + 1];
 
 void Client_Reset(int client) {
     g_isKilled[client] = KILLED_NO;
     g_classChangeTime[client] = 0.0;
-    g_spectatorsStartTime[client] = 0.0;
-    g_spectatorsEndTime[client] = 0.0;
+    g_spectatorStartTime[client] = 0.0;
+    g_spectatorEndTime[client] = 0.0;
     g_lastTeam[client] = TEAM_UNASSIGNED;
 }
 
@@ -30,21 +30,21 @@ void Client_UpdateClassChangeTime(int client) {
     g_classChangeTime[client] = GetGameTime();
 }
 
-float Client_GetSpectatorsDelta(int client) {
-    return g_spectatorsEndTime[client] - g_spectatorsStartTime[client];
+float Client_GetSpectatorTime(int client) {
+    return g_spectatorEndTime[client] - g_spectatorStartTime[client];
 }
 
-void Client_UpdateSpectatorsStartTime(int client) {
-    g_spectatorsStartTime[client] = GetGameTime();
+void Client_UpdateSpectatorStartTime(int client) {
+    g_spectatorStartTime[client] = GetGameTime();
 }
 
-void Client_UpdateSpectatorsEndTime(int client) {
-    g_spectatorsEndTime[client] = GetGameTime();
+void Client_UpdateSpectatorEndTime(int client) {
+    g_spectatorEndTime[client] = GetGameTime();
 }
 
-void Client_ResetSpectatorsTime(int client) {
-    g_spectatorsStartTime[client] = 0.0;
-    g_spectatorsEndTime[client] = 0.0;
+void Client_ResetSpectatorTime(int client) {
+    g_spectatorStartTime[client] = 0.0;
+    g_spectatorEndTime[client] = 0.0;
 }
 
 int Client_GetLastTeam(int client) {
