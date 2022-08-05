@@ -10,7 +10,7 @@ void UseCase_PlayerSpawn(int client) {
         params.WriteFloat(spectatorTime);
         params.Reset();
 
-        CreateTimer(API_CALL_INTERVAL, UseCaseTimer_ApiCall, params, TIMER_FLAG_NO_MAPCHANGE);
+        CreateTimer(API_CALL_INTERVAL, UseCaseTimer_ApiCall, params, TIMER_FLAG_NO_MAPCHANGE | TIMER_DATA_HNDL_CLOSE);
     }
 
     Client_SetKilled(client, KILLED_NO);
@@ -20,11 +20,10 @@ void UseCase_PlayerSpawn(int client) {
 public Action UseCaseTimer_ApiCall(Handle timer, DataPack params) {
     int userId = params.ReadCell();
     int client = GetClientOfUserId(userId);
-    float spectatorTime = params.ReadFloat();
-
-    delete params;
 
     if (client != INVALID_CLIENT) {
+        float spectatorTime = params.ReadFloat();
+
         Api_OnClientFastRespawned(client, spectatorTime);
     }
 
