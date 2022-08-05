@@ -4,6 +4,7 @@
 #pragma newdecls required
 
 #include "frd/client"
+#include "frd/use-case"
 
 #include "modules/api.sp"
 #include "modules/client.sp"
@@ -13,7 +14,7 @@ public Plugin myinfo = {
     name = "Fast respawn detector",
     author = "Dron-elektron",
     description = "Allows you to detect a fast respawn",
-    version = "1.0.1",
+    version = "1.0.2",
     url = "https://github.com/dronelektron/fast-respawn-detector"
 };
 
