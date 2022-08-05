@@ -4,6 +4,7 @@
 #pragma newdecls required
 
 #include "frd/client"
+#include "frd/use-case"
 
 #include "modules/api.sp"
 #include "modules/client.sp"

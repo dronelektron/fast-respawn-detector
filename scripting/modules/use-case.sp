@@ -2,13 +2,33 @@ void UseCase_PlayerSpawn(int client) {
     float classChangeDelta = Client_GetClassChangeDelta(client);
 
     if (Client_IsKilled(client) && classChangeDelta < CLASS_CHANGE_DELTA) {
+        int userId = GetClientUserId(client);
         float spectatorTime = Client_GetSpectatorTime(client);
+        DataPack params = new DataPack();
 
-        Api_OnClientFastRespawned(client, spectatorTime);
+        params.WriteCell(userId);
+        params.WriteFloat(spectatorTime);
+        params.Reset();
+
+        CreateTimer(API_CALL_INTERVAL, UseCaseTimer_ApiCall, params, TIMER_FLAG_NO_MAPCHANGE);
     }
 
     Client_SetKilled(client, KILLED_NO);
     Client_ResetSpectatorTime(client);
+}
+
+public Action UseCaseTimer_ApiCall(Handle timer, DataPack params) {
+    int userId = params.ReadCell();
+    int client = GetClientOfUserId(userId);
+    float spectatorTime = params.ReadFloat();
+
+    delete params;
+
+    if (client != INVALID_CLIENT) {
+        Api_OnClientFastRespawned(client, spectatorTime);
+    }
+
+    return Plugin_Continue;
 }
 
 void UseCase_PlayerTeam(int client, int team) {

@@ -3,8 +3,6 @@
 #endif
 #define _frd_client_included
 
-#define CLASS_CHANGE_DELTA 0.1
-
 #define KILLED_YES true
 #define KILLED_NO false
 
