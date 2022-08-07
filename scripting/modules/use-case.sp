@@ -1,4 +1,8 @@
 void UseCase_PlayerSpawn(int client) {
+    if (Client_HasApiTimer(client)) {
+        return;
+    }
+
     float classChangeDelta = Client_GetClassChangeDelta(client);
 
     if (Client_IsKilled(client) && classChangeDelta < CLASS_CHANGE_DELTA) {
@@ -10,7 +14,9 @@ void UseCase_PlayerSpawn(int client) {
         params.WriteFloat(spectatorTime);
         params.Reset();
 
-        CreateTimer(API_CALL_INTERVAL, UseCaseTimer_ApiCall, params, TIMER_FLAG_NO_MAPCHANGE | TIMER_DATA_HNDL_CLOSE);
+        Handle timer = CreateTimer(API_CALL_INTERVAL, UseCaseTimer_ApiCall, params, API_TIMER_FLAGS);
+
+        Client_SetApiTimer(client, timer);
     }
 
     Client_SetKilled(client, KILLED_NO);
@@ -25,9 +31,18 @@ public Action UseCaseTimer_ApiCall(Handle timer, DataPack params) {
         float spectatorTime = params.ReadFloat();
 
         Api_OnClientFastRespawned(client, spectatorTime);
+        Client_ResetApiTimer(client);
     }
 
     return Plugin_Continue;
+}
+
+public void UseCase_KillApiTimers() {
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client)) {
+            Client_KillApiTimer(client);
+        }
+    }
 }
 
 void UseCase_PlayerTeam(int client, int team) {

@@ -3,6 +3,7 @@ static float g_classChangeTime[MAXPLAYERS + 1];
 static float g_spectatorStartTime[MAXPLAYERS + 1];
 static float g_spectatorEndTime[MAXPLAYERS + 1];
 static int g_lastTeam[MAXPLAYERS + 1];
+static Handle g_apiTimer[MAXPLAYERS + 1];
 
 void Client_Reset(int client) {
     g_isKilled[client] = KILLED_NO;
@@ -10,6 +11,7 @@ void Client_Reset(int client) {
     g_spectatorStartTime[client] = 0.0;
     g_spectatorEndTime[client] = 0.0;
     g_lastTeam[client] = TEAM_UNASSIGNED;
+    g_apiTimer[client] = null;
 }
 
 bool Client_IsKilled(int client) {
@@ -53,4 +55,20 @@ int Client_GetLastTeam(int client) {
 
 void Client_SetLastTeam(int client, int lastTeam) {
     g_lastTeam[client] = lastTeam;
+}
+
+bool Client_HasApiTimer(int client) {
+    return g_apiTimer[client] != null;
+}
+
+void Client_SetApiTimer(int client, Handle timer) {
+    g_apiTimer[client] = timer;
+}
+
+void Client_ResetApiTimer(int client) {
+    g_apiTimer[client] = null;
+}
+
+void Client_KillApiTimer(int client) {
+    delete g_apiTimer[client];
 }
