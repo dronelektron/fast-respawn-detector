@@ -45,6 +45,14 @@ public void UseCase_KillApiTimers() {
     }
 }
 
+public void UseCase_MarkClientsAsNotKilled() {
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client)) {
+            Client_SetKilled(client, KILLED_NO);
+        }
+    }
+}
+
 void UseCase_PlayerTeam(int client, int team) {
     int lastTeam = Client_GetLastTeam(client);
     bool fromAliveToDeadTeam = UseCase_IsAliveTeam(lastTeam) && UseCase_IsDeadTeam(team);

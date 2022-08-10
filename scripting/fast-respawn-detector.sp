@@ -14,7 +14,7 @@ public Plugin myinfo = {
     name = "Fast respawn detector",
     author = "Dron-elektron",
     description = "Allows you to detect a fast respawn",
-    version = "1.0.4",
+    version = "1.0.5",
     url = "https://github.com/dronelektron/fast-respawn-detector"
 };
 
@@ -72,4 +72,5 @@ public void Event_PlayerChangeClass(Event event, const char[] name, bool dontBro
 
 public void Event_RoundStart(Event event, const char[] name, bool dontBroadcast) {
     UseCase_KillApiTimers();
+    UseCase_MarkClientsAsNotKilled();
 }
