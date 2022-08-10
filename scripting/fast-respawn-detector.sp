@@ -72,4 +72,5 @@ public void Event_PlayerChangeClass(Event event, const char[] name, bool dontBro
 
 public void Event_RoundStart(Event event, const char[] name, bool dontBroadcast) {
     UseCase_KillApiTimers();
+    UseCase_MarkClientsAsNotKilled();
 }
