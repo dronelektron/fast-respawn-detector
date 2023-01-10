@@ -5,12 +5,14 @@ void UseCase_PlayerSpawn(int client) {
 
     float classChangeDelta = Client_GetClassChangeDelta(client);
 
-    if (Client_IsKilled(client) && classChangeDelta < CLASS_CHANGE_DELTA) {
+    if (classChangeDelta < CLASS_CHANGE_DELTA) {
         int userId = GetClientUserId(client);
+        bool isKilled = Client_IsKilled(client);
         float spectatorTime = Client_GetSpectatorTime(client);
         DataPack params = new DataPack();
 
         params.WriteCell(userId);
+        params.WriteCell(isKilled);
         params.WriteFloat(spectatorTime);
         params.Reset();
 
@@ -28,9 +30,10 @@ public Action UseCaseTimer_ApiCall(Handle timer, DataPack params) {
     int client = GetClientOfUserId(userId);
 
     if (client != INVALID_CLIENT) {
+        bool isKilled = params.ReadCell();
         float spectatorTime = params.ReadFloat();
 
-        Api_OnClientFastRespawned(client, spectatorTime);
+        Api_OnClientFastRespawned(client, isKilled, spectatorTime);
         Client_ResetApiTimer(client);
     }
 

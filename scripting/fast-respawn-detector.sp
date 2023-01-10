@@ -1,8 +1,5 @@
 #include <sourcemod>
 
-#pragma semicolon 1
-#pragma newdecls required
-
 #include "frd/client"
 #include "frd/use-case"
 
@@ -14,7 +11,7 @@ public Plugin myinfo = {
     name = "Fast respawn detector",
     author = "Dron-elektron",
     description = "Allows you to detect a fast respawn",
-    version = "1.0.5",
+    version = "1.1.0",
     url = "https://github.com/dronelektron/fast-respawn-detector"
 };
 
