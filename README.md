@@ -1,9 +1,9 @@
 # Fast respawn detector
 
-Allows you to detect a fast respawn:
+Allows you to detect fast respawn:
 
-* When a player dies, changes class next to spawn zone
-* When a player dies, joins the spectator team for a while and then returns to the game
+* When a player changes class near the spawn zone
+* When a player joins the spectator team for a while and then returns to the game
 
 ### Supported Games
 
@@ -17,10 +17,11 @@ Allows you to detect a fast respawn:
 ### API
 
 * client - Client's number
+* isKilled - Was the client killed before fast respawn
 * spectatorTime - How long the client was in spectator team (in seconds)
 
 ```
-forward void OnClientFastRespawned(int client, float spectatorTime);
+forward void OnClientFastRespawned(int client, bool isKilled, float spectatorTime);
 ```
 
 ### Usage example
@@ -44,7 +45,7 @@ public void OnAllPluginsLoaded() {
     }
 }
 
-public void OnClientFastRespawned(int client, float spectatorTime) {
-    PrintToChatAll("Client %d fast respawned, he was in spectators for %.2f seconds", client, spectatorTime);
+public void OnClientFastRespawned(int client, bool isKilled, float spectatorTime) {
+    PrintToChatAll("Client %d fast respawned, is killed = %d, spectator time = %.2f sec", client, spectatorTime);
 }
 ```

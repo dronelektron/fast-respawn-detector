@@ -1,8 +1,5 @@
 #include <sourcemod>
 
-#pragma semicolon 1
-#pragma newdecls required
-
 #include "frd/client"
 #include "frd/use-case"
 
